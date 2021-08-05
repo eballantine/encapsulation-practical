@@ -1,14 +1,8 @@
 require 'diary'
 
-describe SecretDiary do
-  context '.initialize' do
-    it 'should be locked' do
-      expect(subject.locked).to be true
-    end
-  end
+describe Diary do
 
   context 'locked' do
-    
     describe '.add_entry' do
       it 'should throw an error' do
         expect{ subject.add_entry("TEST") }.to raise_error "This diary is locked."
@@ -18,13 +12,6 @@ describe SecretDiary do
     describe '.get_entries' do
       it 'should throw an error' do
         expect{ subject.get_entries }.to raise_error "This diary is locked."
-      end
-    end
-
-    describe '.unlock' do
-      it 'should unlock the diary' do
-        subject.unlock
-        expect(subject.locked).to be false
       end
     end
   end
@@ -44,14 +31,7 @@ describe SecretDiary do
       it 'should return all entries' do
         subject.add_entry("TEST1")
         subject.add_entry("TEST2")
-        expect(subject.get_entries).to eq ["TEST1", "TEST2"]
-      end
-    end
-
-    describe '.lock' do
-      it 'should lock the diary' do
-        subject.lock
-        expect(subject.locked).to be true
+        expect(subject.entries).to eq ["TEST1", "TEST2"]
       end
     end
   end
